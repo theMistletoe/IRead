@@ -21,4 +21,8 @@ contract BookReportToken is ERC721Full {
 
         return tokenId;
     }
+
+    function burn(uint256 _tokenId) public {
+        super._burn(_tokenId);
+    }
 }

@@ -3,7 +3,7 @@ pragma solidity ^0.5.2;
 import "./../node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
 
 contract BookReportToken is ERC721Full {
-    uint256 internal nextTokenId = 0;
+    uint256 private nextTokenId = 0;
 
     constructor(string memory  name, string memory symbol) ERC721Full(name, symbol) public {}
 

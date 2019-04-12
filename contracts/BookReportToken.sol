@@ -10,7 +10,6 @@ contract BookReportToken is ERC721Full {
     event Mint(address owner, uint256 tokenId);
 
     function createBookReport(string memory tokenURI) public returns (uint256) {
-
         uint256 tokenId = nextTokenId;
         nextTokenId = nextTokenId.add(1);
 
@@ -22,7 +21,15 @@ contract BookReportToken is ERC721Full {
         return tokenId;
     }
 
-    function burn(uint256 _tokenId) public {
+    function burn(uint256 _tokenId) external {
         super._burn(_tokenId);
+    }
+
+    function getAllBookReportIdOfOwner(address owner) external view returns (uint256[] memory) {
+        return super._tokensOfOwner(owner);
+    }
+
+    function getBookReport(uint256 _tokenId) external {
+        // return super.tokenURI(_tokenId);
     }
 }

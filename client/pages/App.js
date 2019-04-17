@@ -25,7 +25,7 @@ class App extends Component {
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
+      this.setState({ web3, accounts, contract: instance });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -35,31 +35,11 @@ class App extends Component {
     }
   };
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
-
-    // Stores a given value, 5 by default.
-    // await contract.methods.set(5).send({ from: accounts[0] });
-    // await contract.methods.createBookReport('fromFront').send({ from: accounts[0] });
-    console.log('end');
-
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.totalSupply().call();
-
-    // Update state with the result.
-    this.setState({ totalSupply: response });
-  };
-
   render() {
-    if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
-    }
-    return (
-      <div className="App">
-        {console.log(this.state.totalSupply)}
-        <div>The stored value is: {this.state.totalSupply}</div>
-      </div>
-    );
+    const { web3, accounts, contract } = this.state
+    return web3 && accounts
+      ? this.props.render({ web3, accounts, contract })
+      : this.props.renderLoading()
   }
 }
 

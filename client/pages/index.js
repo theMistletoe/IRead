@@ -2,11 +2,13 @@ import Layout from '../comps/MyLayout';
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import NetworkInfo from './NetworkInfo'
+import AccountInfo from './AccountInfo';
 
 const Index = (props) => (
     <Layout>
         <h1>Batman TV Shows</h1>
         <NetworkInfo />
+        <AccountInfo />
         <ul>
             {props.shows.map(({ show }) => (
                 <li key={show.id}>

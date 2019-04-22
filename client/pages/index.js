@@ -6,6 +6,7 @@ import AccountInfo from './AccountInfo';
 import AllReports from './AllReports';
 import Button from '@material-ui/core/Button'
 import TextFields from './TextFields'
+import PostReportForm from './PostReportForm'
 
 const Index = (props) => (
     <Layout>
@@ -16,7 +17,8 @@ const Index = (props) => (
         <Button variant="contained" color="primary" >
             hello
         </Button>
-        <TextFields />
+        <PostReportForm />
+        {/* <TextFields /> */}
         <ul>
             {props.shows.map(({ show }) => (
                 <li key={show.id}>

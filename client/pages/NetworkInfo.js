@@ -3,41 +3,44 @@ import App from './App'
 
 class NetworkInfo extends React.Component {
     state = {
-        tokenName: undefined
+        tokenName: undefined,
+        symbol: undefined,
+        contractAddress: undefined,
+    };
+
+    componentDidMount = async () => {
+        this.getTokenName()
+        this.getSymbol()
+        this.getContractAddress()
     };
 
     getTokenName = async () => {
-        const { accounts, contract } = this.props
+        const { contract } = this.props
         const response = await contract.methods.name().call()
         this.setState({ tokenName: response })
     }
 
-    storeValue = async () => {
-        const { accounts, contract } = this.props
-        await contract.methods.set(5).send({ from: accounts[0] })
-        alert('Stored 5 into account')
-    };
+    getSymbol = async () => {
+        const { contract } = this.props
+        const response = await contract.methods.symbol().call()
+        this.setState({ symbol: response })
+    }
 
-    getValue = async () => {
-        const { accounts, contract } = this.props
-        const response = await contract.methods.get().call({ from: accounts[0] })
-        this.setState({ balance: response })
-    };
-
-    getEthBalance = async () => {
-        const { web3, accounts } = this.props
-        const balanceInWei = await web3.eth.getBalance(accounts[0])
-        this.setState({ ethBalance: balanceInWei / 1e18 })
-    };
+    getContractAddress = async () => {
+        const { contract } = this.props
+        const response = await contract.address
+        this.setState({ contractAddress: response })
+    }
 
     render() {
         const { tokenName = 'N/A' } = this.state
+        const { symbol = 'N/A' } = this.state
+        const { contractAddress = 'N/A' } = this.state
         return (
             <div>
-                <h1>My Dapp</h1>
-
-                <button onClick={this.getTokenName}>Get TokenName</button>
                 <div>Token Name: {tokenName}</div>
+                <div>Symbol: {symbol}</div>
+                <div>Contract Address: {contractAddress}</div>
             </div>
         )
     }

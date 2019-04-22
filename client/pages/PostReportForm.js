@@ -31,18 +31,6 @@ class PostReportForm extends React.Component {
         content: 'DefaultContent',
     };
 
-    // componentDidMount = async () => {
-    //     const { contract } = this.props
-    //     const allTokensCount = await contract.methods.totalSupply().call()
-    //     const alltokes = [];
-    //     for (let i = 0; i < allTokensCount; i += 1) {
-    //         const token = await contract.methods.tokenURI(i).call()
-    //         alltokes.push(token);
-    //     }
-    //     console.log(alltokes)
-    //     this.setState({ alltokes: alltokes })
-    // };
-
     createBookReport = async () => {
         const { accounts, contract } = this.props
         const report = {

@@ -4,6 +4,8 @@ import fetch from 'isomorphic-unfetch'
 import NetworkInfo from './NetworkInfo'
 import AccountInfo from './AccountInfo';
 import AllReports from './AllReports';
+import Button from '@material-ui/core/Button'
+import TextFields from './TextFields'
 
 const Index = (props) => (
     <Layout>
@@ -11,6 +13,10 @@ const Index = (props) => (
         <NetworkInfo />
         <AccountInfo />
         <AllReports />
+        <Button variant="contained" color="primary" >
+            hello
+        </Button>
+        <TextFields />
         <ul>
             {props.shows.map(({ show }) => (
                 <li key={show.id}>

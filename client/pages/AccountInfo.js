@@ -30,7 +30,7 @@ class AccountInfo extends React.Component {
         return (
             <div>
                 {/* <button onClick={this.tokens}>Get Tkens</button> */}
-                <div>Tokens: {tokens}</div>
+                <div>Account Tokens: {tokens}</div>
             </div>
         )
     }

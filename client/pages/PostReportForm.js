@@ -79,7 +79,7 @@ class PostReportForm extends React.Component {
                         value={this.state.link}
                         onChange={this.handleChange('link')}
                         margin="normal"
-                        placeholder="書籍URL"
+                        placeholder="書籍のURL"
                     />
                 </div>
 

@@ -20,4 +20,8 @@ contract BookReportToken is ERC721Full {
 
         return tokenId;
     }
+
+    function deleteBookReport(uint256 tokenId) public {
+        super._burn(msg.sender, tokenId);
+    }
 }

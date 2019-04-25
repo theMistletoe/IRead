@@ -1,6 +1,26 @@
 import React from 'react'
 import App from './App'
 
+
+const timelineStyle = {
+    margin: 20,
+    padding: 20,
+    border: '1px solid #DDD'
+}
+
+const reportStyle = {
+    border: '1px solid #DDD'
+}
+
+const addressStyle = {
+
+}
+
+const contentStyle = {
+
+}
+
+
 class AllReports extends React.Component {
     state = {
         alltokens: [],
@@ -14,7 +34,6 @@ class AllReports extends React.Component {
             const owner = await contract.methods.ownerOf(i).call()
             const token = await contract.methods.tokenURI(i).call()
             const report = {
-                id: i,
                 owner: owner,
                 report: token
             }
@@ -28,7 +47,14 @@ class AllReports extends React.Component {
         const { alltokens = 'N/A' } = this.state
         return (
             <div>
-                {alltokens.map(token => <div>{token.id}{token.owner}{token.report}</div>)}
+                {alltokens.map(token => {
+                    return (
+                        <div style={reportStyle}>
+                            <div>{token.owner}</div>
+                            <div>{token.report}</div>
+                        </div>
+                    )
+                })}
             </div>
         )
     }

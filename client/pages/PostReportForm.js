@@ -23,12 +23,16 @@ const styles = theme => ({
     },
 });
 
+const textFieldStyle = {
+    width: 600
+}
+
 
 class PostReportForm extends React.Component {
     state = {
-        title: 'DefaultTitle',
-        link: 'DefaultLink',
-        content: 'DefaultContent',
+        title: undefined,
+        link: undefined,
+        content: undefined,
     };
 
     createBookReport = async () => {
@@ -55,34 +59,43 @@ class PostReportForm extends React.Component {
                 // className={classes.container}
                 noValidate
                 autoComplete="off">
-                <TextField
-                    id="title"
-                    label="Title"
-                    // className={classes.textField}
-                    value={this.state.title}
-                    onChange={this.handleChange('title')}
-                    margin="normal"
-                />
+                <div>
+                    <TextField
+                        id="title"
+                        label="タイトル"
+                        style={textFieldStyle}
+                        value={this.state.title}
+                        onChange={this.handleChange('title')}
+                        margin="normal"
+                        placeholder="書籍のタイトル"
+                    />
+                </div>
 
-                <TextField
-                    id="link"
-                    label="link"
-                    // className={classes.textField}
-                    value={this.state.link}
-                    onChange={this.handleChange('link')}
-                    margin="normal"
-                />
+                <div>
+                    <TextField
+                        id="link"
+                        label="URL"
+                        style={textFieldStyle}
+                        value={this.state.link}
+                        onChange={this.handleChange('link')}
+                        margin="normal"
+                        placeholder="書籍URL"
+                    />
+                </div>
 
-                <TextField
-                    id="content"
-                    label="content"
-                    multiline
-                    rowsMax="30"
-                    value={this.state.content}
-                    onChange={this.handleChange('content')}
-                    // className={classes.textField}
-                    margin="normal"
-                />
+                <div>
+                    <TextField
+                        id="content"
+                        label="感想"
+                        multiline
+                        rowsMax="30"
+                        value={this.state.content}
+                        onChange={this.handleChange('content')}
+                        style={textFieldStyle}
+                        margin="normal"
+                        placeholder="感想をここに入力"
+                    />
+                </div>
                 <Button
                     variant="contained"
                     color="primary"

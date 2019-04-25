@@ -34,6 +34,7 @@ class AllReports extends React.Component {
             const owner = await contract.methods.ownerOf(i).call()
             const token = await contract.methods.tokenURI(i).call()
             const report = {
+                id: i,
                 owner: owner,
                 report: token
             }
@@ -49,7 +50,7 @@ class AllReports extends React.Component {
             <div>
                 {alltokens.map(token => {
                     return (
-                        <div style={reportStyle}>
+                        <div style={reportStyle} key={token.id}>
                             <div>{token.owner}</div>
                             <div>{token.report}</div>
                         </div>

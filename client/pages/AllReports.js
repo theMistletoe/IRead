@@ -3,26 +3,32 @@ import App from './App'
 
 class AllReports extends React.Component {
     state = {
-        alltokes: undefined
-    };
+        alltokens: [],
+    }
 
     componentDidMount = async () => {
         const { contract } = this.props
         const allTokensCount = await contract.methods.totalSupply().call()
-        const alltokes = [];
+        const alltokens = Object.assign([], this.state.alltokens);
         for (let i = 0; i < allTokensCount; i += 1) {
+            const owner = await contract.methods.ownerOf(i).call()
             const token = await contract.methods.tokenURI(i).call()
-            alltokes.push(token);
+            const report = {
+                id: i,
+                owner: owner,
+                report: token
+            }
+            alltokens.push(report)
         }
-        console.log(alltokes)
-        this.setState({ alltokes: alltokes })
+        console.log(alltokens)
+        this.setState({ alltokens: this.state.alltokens.concat(alltokens) })
     };
 
     render() {
-        const { alltokes = 'N/A' } = this.state
+        const { alltokens = 'N/A' } = this.state
         return (
             <div>
-                <div>AllTokens: {alltokes}</div>
+                {alltokens.map(token => <div>{token.id}{token.owner}{token.report}</div>)}
             </div>
         )
     }

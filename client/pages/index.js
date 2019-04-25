@@ -1,6 +1,4 @@
 import Layout from '../comps/MyLayout';
-import Link from 'next/link'
-import fetch from 'isomorphic-unfetch'
 import NetworkInfo from './NetworkInfo'
 import AccountInfo from './AccountInfo';
 import AllReports from './AllReports';

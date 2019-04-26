@@ -7,6 +7,14 @@ class AccountInfo extends React.Component {
     };
 
     componentDidMount = async () => {
+        this.reflectTokens();
+    };
+
+    componentDidUpdate = async () => {
+        this.reflectTokens();
+    };
+
+    reflectTokens = async () => {
         const { accounts, contract } = this.props
         const ownedTokensCount = await contract.methods.balanceOf(accounts[0]).call()
         const tokens = [];
@@ -17,12 +25,6 @@ class AccountInfo extends React.Component {
         }
         console.log(tokens)
         this.setState({ tokens: tokens })
-    };
-
-    getTokens = async () => {
-        const { accounts, contract } = this.props
-        const response = await contract.methods.name().call()
-        this.setState({ tokens: response })
     }
 
     render() {

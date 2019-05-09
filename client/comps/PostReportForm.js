@@ -33,7 +33,7 @@ class PostReportForm extends React.Component {
         title: undefined,
         link: undefined,
         content: undefined,
-        tokens: undefined,
+        tokens: [],
     };
 
     componentDidMount = async () => {
@@ -59,13 +59,13 @@ class PostReportForm extends React.Component {
     reflectTokens = async () => {
         const { accounts, contract } = this.props
         const ownedTokensCount = await contract.methods.balanceOf(accounts[0]).call()
-        const tokens = [];
+        const tokens = Object.assign([], this.state.tokens);
         for (let i = 0; i < ownedTokensCount; i += 1) {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(accounts[0], i).call()
             const token = await contract.methods.tokenURI(tokenId).call()
             tokens.push(token);
         }
-        this.setState({ tokens: tokens })
+        this.setState({ tokens: this.state.tokens.concat(tokens) })
     }
 
     render() {

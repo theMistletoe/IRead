@@ -33,6 +33,11 @@ class PostReportForm extends React.Component {
         title: undefined,
         link: undefined,
         content: undefined,
+        tokens: undefined,
+    };
+
+    componentDidMount = async () => {
+        this.reflectTokens();
     };
 
     createBookReport = async () => {
@@ -51,58 +56,74 @@ class PostReportForm extends React.Component {
         this.setState({ [name]: event.target.value });
     };
 
+    reflectTokens = async () => {
+        const { accounts, contract } = this.props
+        const ownedTokensCount = await contract.methods.balanceOf(accounts[0]).call()
+        const tokens = [];
+        for (let i = 0; i < ownedTokensCount; i += 1) {
+            const tokenId = await contract.methods.tokenOfOwnerByIndex(accounts[0], i).call()
+            const token = await contract.methods.tokenURI(tokenId).call()
+            tokens.push(token);
+        }
+        this.setState({ tokens: tokens })
+    }
+
     render() {
-        const { classes } = this.props;
+        const { tokens = 'N/A' } = this.state
 
         return (
-            <form
-                // className={classes.container}
-                noValidate
-                autoComplete="off">
-                <div>
-                    <TextField
-                        id="title"
-                        label="タイトル"
-                        style={textFieldStyle}
-                        value={this.state.title}
-                        onChange={this.handleChange('title')}
-                        margin="normal"
-                        placeholder="書籍のタイトル"
-                    />
-                </div>
+            <div>
+                <form
+                    // className={classes.container}
+                    noValidate
+                    autoComplete="off">
+                    <div>
+                        <TextField
+                            id="title"
+                            label="タイトル"
+                            style={textFieldStyle}
+                            value={this.state.title}
+                            onChange={this.handleChange('title')}
+                            margin="normal"
+                            placeholder="書籍のタイトル"
+                        />
+                    </div>
 
-                <div>
-                    <TextField
-                        id="link"
-                        label="URL"
-                        style={textFieldStyle}
-                        value={this.state.link}
-                        onChange={this.handleChange('link')}
-                        margin="normal"
-                        placeholder="書籍のURL"
-                    />
-                </div>
+                    <div>
+                        <TextField
+                            id="link"
+                            label="URL"
+                            style={textFieldStyle}
+                            value={this.state.link}
+                            onChange={this.handleChange('link')}
+                            margin="normal"
+                            placeholder="書籍のURL"
+                        />
+                    </div>
 
-                <div>
-                    <TextField
-                        id="content"
-                        label="感想"
-                        multiline
-                        rowsMax="30"
-                        value={this.state.content}
-                        onChange={this.handleChange('content')}
-                        style={textFieldStyle}
-                        margin="normal"
-                        placeholder="感想をここに入力"
-                    />
-                </div>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={this.createBookReport}>
-                    Post!
+                    <div>
+                        <TextField
+                            id="content"
+                            label="感想"
+                            multiline
+                            rowsMax="30"
+                            value={this.state.content}
+                            onChange={this.handleChange('content')}
+                            style={textFieldStyle}
+                            margin="normal"
+                            placeholder="感想をここに入力"
+                        />
+                    </div>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={this.createBookReport}>
+                        Post!
                 </Button>
-            </form >
+                </form>
+
+                <div>Account Tokens: {tokens}</div>
+            </div>
         );
     }
 }

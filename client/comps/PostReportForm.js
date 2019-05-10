@@ -53,6 +53,7 @@ class PostReportForm extends React.Component {
             .on('transactionHash', (hash) => {
                 console.log(hash);
                 window.alert('your created tx:' + hash);
+                this.reflectTokens();
             });
     };
 
@@ -63,13 +64,13 @@ class PostReportForm extends React.Component {
     reflectTokens = async () => {
         const { accounts, contract } = this.props
         const ownedTokensCount = await contract.methods.balanceOf(accounts[0]).call()
-        const tokens = Object.assign([], this.state.tokens);
+        const newTokens = [];
         for (let i = 0; i < ownedTokensCount; i += 1) {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(accounts[0], i).call()
             const token = await contract.methods.tokenURI(tokenId).call()
-            tokens.push(token);
+            newTokens.push(token);
         }
-        this.setState({ tokens: this.state.tokens.concat(tokens) })
+        this.setState({ tokens: newTokens })
     }
 
     render() {

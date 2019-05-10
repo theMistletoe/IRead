@@ -6,6 +6,7 @@ const getWeb3 = () =>
     // Modern dapp browsers...
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
+      console.log(web3.version)
       try {
         // Request account access if needed
         window.ethereum.enable();

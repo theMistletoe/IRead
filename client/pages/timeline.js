@@ -3,7 +3,9 @@ import AllReports from '../comps/AllReports'
 
 const Index = (props) => (
     <Layout>
-        <h1>Book Reports</h1>
+        <center>
+            <h1>Book Reports</h1>
+        </center>
         <AllReports />
     </Layout>
 )

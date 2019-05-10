@@ -9,17 +9,11 @@ const timelineStyle = {
 }
 
 const reportStyle = {
-    border: '1px solid #DDD'
+    borderBottom: "3px solid rgb(212, 212, 212)",
+    marginLeft: 300,
+    marginRight: 300,
+    marginTop: 50,
 }
-
-const addressStyle = {
-
-}
-
-const contentStyle = {
-
-}
-
 
 class AllReports extends React.Component {
     state = {
@@ -31,12 +25,15 @@ class AllReports extends React.Component {
         const allTokensCount = await contract.methods.totalSupply().call()
         const alltokens = Object.assign([], this.state.alltokens);
         for (let i = 0; i < allTokensCount; i += 1) {
-            const owner = await contract.methods.ownerOf(i).call()
-            const token = await contract.methods.tokenURI(i).call()
+            const owner = await contract.methods.ownerOf(i).call();
+            const token = await contract.methods.tokenURI(i).call();
+            const tokenJson = JSON.parse(token);
             const report = {
                 id: i,
                 owner: owner,
-                report: token
+                title: tokenJson.title,
+                link: tokenJson.link,
+                content: tokenJson.content,
             }
             alltokens.push(report)
         }
@@ -51,8 +48,11 @@ class AllReports extends React.Component {
                 {alltokens.map(token => {
                     return (
                         <div style={reportStyle} key={token.id}>
-                            <div>{token.owner}</div>
-                            <div>{token.report}</div>
+                            <p>書籍タイトル：{token.title}</p>
+                            <div>リンク：{token.link}</div>
+                            <h3>感想</h3>
+                            <div>{token.content}</div>
+                            <div>私がこれを読みました：{token.owner}</div>
                         </div>
                     )
                 })}

@@ -41,15 +41,19 @@ class PostReportForm extends React.Component {
     };
 
     createBookReport = async () => {
-        const { accounts, contract } = this.props
+        const { accounts, contract } = this.props;
         const report = {
             title: this.state.title,
             link: this.state.link,
             content: this.state.content
-        }
-        console.log(report)
-        console.log(JSON.parse(JSON.stringify(report)))
+        };
+        console.log(report);
+        console.log(JSON.parse(JSON.stringify(report)));
         await contract.methods.createBookReport(JSON.stringify(report)).send({ from: accounts[0] })
+            .on('transactionHash', (hash) => {
+                console.log(hash);
+                window.alert('your created tx:' + hash);
+            });
     };
 
     handleChange = name => event => {

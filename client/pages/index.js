@@ -1,11 +1,7 @@
-import Layout from '../comps/MyLayout'
-import AllReports from '../comps/AllReports'
+import Layout from "../comps/MyLayout";
 
-const Index = (props) => (
-    <Layout>
-        <h1>Book Reports</h1>
-        <AllReports />
-    </Layout>
+export default () => (
+  <Layout>
+    <p>This is the about page</p>
+  </Layout>
 )
-
-export default Index

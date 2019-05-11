@@ -55,7 +55,7 @@ class PostReportForm extends React.Component {
             const token = await contract.methods.tokenURI(tokenId).call()
             newTokens.push(JSON.parse(token));
         }
-        this.setState({ tokens: newTokens })
+        this.setState({ tokens: newTokens.reverse() })
     }
 
     render() {
@@ -114,7 +114,7 @@ class PostReportForm extends React.Component {
 
                 <h1>自分の感想文</h1>
                 <div>
-                    {tokens.reverse().map(token => {
+                    {tokens.map(token => {
                         return (
                             <div style={reportStyle} key={token.id}>
                                 <h2>書籍タイトル：{token.title}</h2>

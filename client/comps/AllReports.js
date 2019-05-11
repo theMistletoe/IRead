@@ -2,17 +2,8 @@ import React from 'react'
 import App from './App'
 
 
-const timelineStyle = {
-    margin: 20,
-    padding: 20,
-    border: '1px solid #DDD'
-}
-
 const reportStyle = {
     borderBottom: "3px solid rgb(212, 212, 212)",
-    marginLeft: 300,
-    marginRight: 300,
-    marginTop: 50,
 }
 
 class AllReports extends React.Component {
@@ -48,10 +39,10 @@ class AllReports extends React.Component {
                 {alltokens.map(token => {
                     return (
                         <div style={reportStyle} key={token.id}>
-                            <p>書籍タイトル：{token.title}</p>
+                            <h2>書籍タイトル：{token.title}</h2>
                             <div>リンク：{token.link}</div>
                             <h3>感想</h3>
-                            <div>{token.content}</div>
+                            <p>{token.content}</p>
                             <div>私がこれを読みました：{token.owner}</div>
                         </div>
                     )

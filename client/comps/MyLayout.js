@@ -1,4 +1,5 @@
-import Header from './Header'
+import Header from './Header';
+import Head from 'next/head';
 
 const layoutStyle = {
     margin: 20,
@@ -7,7 +8,11 @@ const layoutStyle = {
 }
 
 const Layout = (props) => (
-    <div style={layoutStyle}>
+    <div>
+        <Head>
+            <title>BookReports</title>
+            <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css'></link>
+        </Head>
         <Header />
         {props.children}
     </div>

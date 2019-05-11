@@ -85,7 +85,7 @@ class PostReportForm extends React.Component {
                     <div>
                         <TextField
                             id="title"
-                            label="タイトル"
+                            label="書籍タイトル"
                             style={textFieldStyle}
                             value={this.state.title}
                             onChange={this.handleChange('title')}

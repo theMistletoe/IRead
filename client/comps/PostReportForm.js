@@ -4,27 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const styles = theme => ({
-    container: {
-        display: 'inline-block',
-        flexWrap: 'wrap',
-        width: '90%',
-    },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 600,
-    },
-    dense: {
-        marginTop: 19,
-    },
-    menu: {
-        width: 200,
-    },
-});
-
 const textFieldStyle = {
     width: 600
+}
+
+const reportStyle = {
+    borderBottom: "3px solid rgb(212, 212, 212)",
 }
 
 
@@ -68,7 +53,7 @@ class PostReportForm extends React.Component {
         for (let i = 0; i < ownedTokensCount; i += 1) {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(accounts[0], i).call()
             const token = await contract.methods.tokenURI(tokenId).call()
-            newTokens.push(token);
+            newTokens.push(JSON.parse(token));
         }
         this.setState({ tokens: newTokens })
     }
@@ -78,8 +63,8 @@ class PostReportForm extends React.Component {
 
         return (
             <div>
+                <h1>投稿フォーム</h1>
                 <form
-                    // className={classes.container}
                     noValidate
                     autoComplete="off">
                     <div>
@@ -124,20 +109,27 @@ class PostReportForm extends React.Component {
                         color="primary"
                         onClick={this.createBookReport}>
                         Post!
-                </Button>
+                   </Button>
                 </form>
 
-                <div>Account Tokens: {tokens}</div>
+                <h1>自分の感想文</h1>
+                <div>
+                    {tokens.reverse().map(token => {
+                        return (
+                            <div style={reportStyle} key={token.id}>
+                                <h2>書籍タイトル：{token.title}</h2>
+                                <div><a href={token.link} target="_blank">Link to Book</a></div>
+                                <h3>感想</h3>
+                                <p>{token.content}</p>
+                                <div>私がこれを読みました：{token.owner}</div>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         );
     }
 }
-
-// TextFields.propTypes = {
-//     classes: PropTypes.object.isRequired,
-// };
-
-// export default withStyles(styles)(PostReportForm);
 
 export default () => (
     <App

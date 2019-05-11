@@ -36,7 +36,7 @@ class AllReports extends React.Component {
         const { alltokens = 'N/A' } = this.state
         return (
             <div>
-                {alltokens.map(token => {
+                {alltokens.reverse().map(token => {
                     return (
                         <div style={reportStyle} key={token.id}>
                             <h2>書籍タイトル：{token.title}</h2>

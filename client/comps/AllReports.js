@@ -40,7 +40,7 @@ class AllReports extends React.Component {
                     return (
                         <div style={reportStyle} key={token.id}>
                             <h2>書籍タイトル：{token.title}</h2>
-                            <div>リンク：<a href={token.link} target="_blank">{token.link}</a></div>
+                            <div><a href={token.link} target="_blank">Link to Book</a></div>
                             <h3>感想</h3>
                             <p>{token.content}</p>
                             <div>私がこれを読みました：{token.owner}</div>

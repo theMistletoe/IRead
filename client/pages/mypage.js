@@ -4,8 +4,9 @@ import PostReportForm from '../comps/PostReportForm'
 
 export default () => (
     <Layout>
-        <p>This is the your account page</p>
+        <h1>マイページ</h1>
         <NetworkInfo />
+        <hr />
         <PostReportForm />
     </Layout>
 )

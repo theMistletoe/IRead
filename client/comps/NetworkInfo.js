@@ -38,9 +38,9 @@ class NetworkInfo extends React.Component {
         const { contractAddress = 'N/A' } = this.state
         return (
             <div>
-                <div>Token Name: {tokenName}</div>
-                <div>Symbol: {symbol}</div>
-                <div>Contract Address: {contractAddress}</div>
+                <div>トークン名: {tokenName}</div>
+                <div>トークンシンボル: {symbol}</div>
+                <div>コントラクトアドレス: {contractAddress}</div>
             </div>
         )
     }

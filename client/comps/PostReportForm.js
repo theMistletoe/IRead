@@ -121,6 +121,8 @@ class PostReportForm extends React.Component {
                    </Button>
                 </form>
 
+                <hr />
+
                 <h1>自分の感想文</h1>
                 <div>
                     {tokens.map(token => {

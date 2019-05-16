@@ -12,7 +12,6 @@ const reportStyle = {
     borderBottom: "3px solid rgb(212, 212, 212)",
 }
 
-
 class PostReportForm extends React.Component {
     state = {
         title: undefined,
@@ -40,6 +39,7 @@ class PostReportForm extends React.Component {
                 window.alert('your created tx:' + hash);
                 this.reflectTokens();
             });
+        console.log('craete token end');
     };
 
     handleChange = name => event => {
@@ -51,12 +51,21 @@ class PostReportForm extends React.Component {
         const ownedTokensCount = await contract.methods.balanceOf(accounts[0]).call()
         const newTokens = [];
         for (let i = 0; i < ownedTokensCount; i += 1) {
-            const tokenId = await contract.methods.tokenOfOwnerByIndex(accounts[0], i).call()
-            const token = await contract.methods.tokenURI(tokenId).call()
-            newTokens.push(JSON.parse(token));
+            const tokenId = await contract.methods.tokenOfOwnerByIndex(accounts[0], i).call();
+            const token = await contract.methods.tokenURI(tokenId).call();
+            let tokenJson = JSON.parse(token);
+            tokenJson['tokenId'] = parseFloat(tokenId).toFixed(0);
+            newTokens.push(tokenJson);
         }
         this.setState({ tokens: newTokens.reverse() })
-    }
+    };
+
+    burnToken = async (tokenId) => {
+        console.log('start', tokenId);
+        const { accounts, contract } = this.props;
+        await contract.methods.deleteBookReport(tokenId).send({ from: accounts[0] });
+        console.log('end', tokenId);
+    };
 
     render() {
         const { tokens = 'N/A' } = this.state
@@ -116,12 +125,13 @@ class PostReportForm extends React.Component {
                 <div>
                     {tokens.map(token => {
                         return (
-                            <div style={reportStyle} key={token.id}>
+                            <div style={reportStyle} key={token.tokenId}>
+                                <div>{token.tokenId}</div>
                                 <h2>書籍タイトル：{token.title}</h2>
                                 <div><a href={token.link} target="_blank">Link to Book</a></div>
                                 <h3>感想</h3>
                                 <p>{token.content}</p>
-                                <div>私がこれを読みました：{token.owner}</div>
+                                <a onClick={() => this.burnToken(token.tokenId)}>Burn!</a>
                             </div>
                         )
                     })}

@@ -13,10 +13,29 @@ class AllReports extends React.Component {
 
     componentDidMount = async () => {
         const { contract } = this.props
-        const allTokensCount = await contract.methods.totalSupply().call()
+        let tokenIdLength = 0;
+
+        await contract.getPastEvents('Transfer', {
+            filter: { myIndexedParam: [20, 23], myOtherIndexedParam: '0x123456789...' }, // Using an array means OR: e.g. 20 or 23
+            fromBlock: 0,
+            toBlock: 'latest'
+        }, (error, events) => {
+            events.map(event => {
+                console.log(event);
+                const returnVal = event.returnValues;
+                if (returnVal.from === '0x0000000000000000000000000000000000000000') {
+                    tokenIdLength = parseInt(returnVal.tokenId, 10)
+                }
+            });
+        });
+
         const alltokens = Object.assign([], this.state.alltokens);
-        for (let i = 0; i < allTokensCount; i += 1) {
+        for (let i = 0; i <= tokenIdLength; i += 1) {
             const owner = await contract.methods.ownerOf(i).call();
+
+            // ignore burned token
+            if (owner === null) continue;
+
             const token = await contract.methods.tokenURI(i).call();
             const tokenJson = JSON.parse(token);
             const report = {
@@ -28,7 +47,7 @@ class AllReports extends React.Component {
             }
             alltokens.push(report)
         }
-        console.log(alltokens)
+
         this.setState({ alltokens: this.state.alltokens.concat(alltokens) })
     };
 

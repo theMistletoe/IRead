@@ -1,5 +1,13 @@
 import Layout from "../comps/MyLayout";
-import { emphasize } from "material-ui/utils/colorManipulator";
+import { darkBlack } from 'material-ui/styles/colors';
+import { white } from 'material-ui/styles/colors';
+
+const footerStyle = {
+  backgroundColor: darkBlack,
+  marginRight: 15,
+  color: white
+}
+
 
 export default () => (
   <Layout>
@@ -22,5 +30,9 @@ export default () => (
         <a href='https://faucet.metamask.io/'>Ether Faucet</a>
       </li>
     </ul>
+
+    <footer style={footerStyle}>
+      @2019 <a href='https://github.com/theMistletoe'>theMistletoe</a> All Right Reserved.
+    </footer>
   </Layout>
 )

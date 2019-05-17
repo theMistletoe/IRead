@@ -128,7 +128,6 @@ class PostReportForm extends React.Component {
                     {tokens.map(token => {
                         return (
                             <div style={reportStyle} key={token.tokenId}>
-                                <div>{token.tokenId}</div>
                                 <h2>書籍タイトル：{token.title}</h2>
                                 <div><a href={token.link} target="_blank">Link to Book</a></div>
                                 <h3>感想</h3>

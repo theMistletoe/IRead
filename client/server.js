@@ -7,6 +7,7 @@ const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
     const server = express()
+    server.set('port', (process.env.PORT || 5000));
 
     server.get('/p/:id', (req, res) => {
         const actualPage = '/post'
@@ -18,7 +19,7 @@ app.prepare().then(() => {
         return handle(req, res)
     })
 
-    server.listen(5000, (err) => {
+    server.listen(server.get('port'), (err) => {
         if (err) throw err
         console.log('> Ready on http://localhost:3000')
     })

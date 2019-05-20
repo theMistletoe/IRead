@@ -1,1 +1,1 @@
-web: npm —prefix ./client start ./client
+web: sh -c 'cd ./client && npm start'

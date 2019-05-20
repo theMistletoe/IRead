@@ -1,0 +1,1 @@
+web: npm —prefix ./client start ./client

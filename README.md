@@ -2,13 +2,19 @@
 Dapp for Book Reports.
 
 ## Description
-This script posts an article selected randomly from Pocket to Slack.
+This is a Dapp for Book Report.
+You can save your learn or impression for books you read.
+
+https://qiita.com/mistletoe/items/5a60f792dcd2e2ae198b
 
 ## Requirement
 - Node.js
 - npm
 - Metamask
 - Truffle
+
+You need to get RopstenTestNetwork ETH.
+https://faucet.metamask.io/
 
 ## Usage
 
